@@ -4,48 +4,45 @@ import java.util.Stack;
 
 public class Main {
 	
+	public static String scan(String str) {
+		String result = "yes";
+		Stack<Character> st = new Stack<Character>();
+		for(int i=0;i<str.length();i++) {
+			char c = str.charAt(i);
+			if(c == '(' || c == '[') {
+				st.add(c);
+			} else if(c == ')') {
+				if(st.empty() || st.peek() != '(') {
+					return "no";
+				} else {
+					st.pop();
+				}
+			} else if(c == ']') {
+				if(st.empty() || st.peek() != '[') {
+					return "no";
+				} else {
+					st.pop();
+				}
+			}
+		}
+		
+		if(!st.isEmpty()) {
+			return "no";
+		} else {
+			return "yes";
+		}
+	}
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-
+//		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		
 		String str = br.readLine();
 		
 		while(!str.equals(".")) {
-			
-			Stack<Character> stack = new Stack<>();
-			stack.push('0');
-			String result = null;
-			
-			for(int i=0;i<str.length();i++) {
-				
-				if(str.charAt(i) == '(' || str.charAt(i) == '[') {
-					stack.push(str.charAt(i));
-				} else if(str.charAt(i) == ')') {
-					if(stack.peek() == '(') {
-						stack.pop();
-					} else {
-						result = "no";
-						break;
-					}
-				} else if(str.charAt(i) == ']') {
-					if(stack.peek() == '[') {
-						stack.pop();
-					} else {
-						result = "no";
-						break;
-					}
-				}
-				
-			}
-			
-			if(result == null && stack.peek() == '0') {
-				result = "yes";
-			} else {
-				result = "no";
-			}
-			
+			String result = scan(str);
 			System.out.println(result);
-			
 			str = br.readLine();
 		}
 	}
