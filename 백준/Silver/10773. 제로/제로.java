@@ -7,24 +7,24 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
+//		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		
 		int K = Integer.parseInt(br.readLine());
-
-		Stack<Integer> stack = new Stack<>();
-		int result = 0;
+		int sum = 0;
+		Stack<Integer> st = new Stack<Integer>();
 		
 		for(int i=0;i<K;i++) {
 			int num = Integer.parseInt(br.readLine());
 			if(num != 0) {
-				stack.push(num);
+				st.add(num);
+				sum += num;
 			} else {
-				stack.pop();
+				sum -= st.peek();
+				st.pop();
 			}
 		}
 		
-		while(!stack.isEmpty()) {
-			result += stack.pop();
-		}
+		System.out.println(sum);
 		
-		System.out.println(result);
 	}
 }
