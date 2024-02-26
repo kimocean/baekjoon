@@ -1,37 +1,18 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
 	
-	public static void main(String[] args) throws IOException {
-//		Scanner s = new Scanner(System.in);
-//		int A = s.nextInt(); // 낮에 올라가는 높이
-//		int B = s.nextInt(); // 밤에 내려가는 높이
-//		int V = s.nextInt(); // 나무 막대 길이
-		
+	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 		
-		int A = Integer.parseInt(st.nextToken());
-		int B = Integer.parseInt(st.nextToken());
-		int V = Integer.parseInt(st.nextToken());
+		double A = Double.parseDouble(st.nextToken());
+		double B = Double.parseDouble(st.nextToken());
+		double V = Double.parseDouble(st.nextToken());
 		
-		int day = (V-B) / (A-B);
-		
-		if((V-B) % (A-B) != 0) {
-			day++;
-		}
-		
-		System.out.println(day);
-
-//		s.close();
+		System.out.println((int)Math.ceil((V-A) / (A-B))+1);
 	}
 }
-
-/*
-https://hyunipad.tistory.com/58
-day 도출 공식은 위 블로그 참조
-
-*/
