@@ -1,9 +1,9 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Comparator;
 import java.util.StringTokenizer;
+
 
 public class Main {
 	
@@ -11,24 +11,31 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		int N = Integer.parseInt(br.readLine());
-		int[][] arr = new int[2][N];
+		int[][] arr = new int[N][2];
 		int[] rank = new int[N];
 		
 		for(int i=0;i<N;i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-			
-			arr[0][i] = Integer.parseInt(st.nextToken());
-			arr[1][i] = Integer.parseInt(st.nextToken());
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			arr[i][0] = Integer.parseInt(st.nextToken());
+			arr[i][1] = Integer.parseInt(st.nextToken());
 		}
 		
-		for(int i=0;i<N;i++) {
-			rank[i] = 1;
-			for(int j=0;j<N;j++) {
-				if(arr[0][i] < arr[0][j] && arr[1][i] < arr[1][j]) {
+		for(int i=0;i<N-1;i++) {
+			for(int j=i;j<N;j++) {
+				if(arr[i][0] > arr[j][0] && arr[i][1] > arr[j][1]) {
+					rank[j]++;
+				} else if(arr[i][0] < arr[j][0] && arr[i][1] < arr[j][1]) {
 					rank[i]++;
 				}
 			}
-			System.out.print(rank[i] + " ");
 		}
+		
+		for(int i=0;i<N;i++) {
+			sb.append(rank[i]+1).append(" ");
+		}
+		
+		System.out.println(sb);
+		
 	}
+	
 }
