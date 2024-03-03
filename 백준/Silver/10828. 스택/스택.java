@@ -1,36 +1,31 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
 	
-	static int stack[] = new int[10000];
-	static int length = 0;
-	
 	public static void push(int x) {
-		stack[length] = x;
-		length++;
+		st.add(x);
 	}
 	
 	public static int pop() {
-		int result;
-		if(length == 0) {
-			result = -1;
+		if(st.isEmpty()) {
+			return -1;
 		} else {
-			result = stack[length-1];
-			stack[length-1] = 0;
-			length--;
+			int num = st.get(st.size()-1);
+			st.remove(st.size()-1);
+			return num;
 		}
-		
-		return result;
-	} 
+	}
 	
 	public static int size() {
-		return length;
+		return st.size();
 	} 
 	
-	public static int isEmpty() {
-		if(length == 0) {
+	public static int empty() {
+		if(st.isEmpty()) {
 			return 1;
 		} else {
 			return 0;
@@ -38,42 +33,45 @@ public class Main {
 	}
 	
 	public static int top() {
-		int result;
-		if(length == 0) {
-			result = -1;
+		if(st.isEmpty()) {
+			return -1;
 		} else {
-			result = stack[length-1];
+			return st.get(st.size()-1);
 		}
-		return result;
 	}
+	
+	public static List<Integer> st = new ArrayList<Integer>();
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
 		StringBuilder sb = new StringBuilder();
+	
+		int N = Integer.parseInt(br.readLine());
 		
 		for(int i=0;i<N;i++) {
+			StringTokenizer stn = new StringTokenizer(br.readLine(), " ");
 			
-			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-			
-			switch(st.nextToken()) {
+			switch (stn.nextToken()) {
 			case "push": 
-				push(Integer.parseInt(st.nextToken()));
+				push(Integer.parseInt(stn.nextToken()));
 				break;
-			case "pop": 
-				sb.append(pop()).append("\n");
+			case "pop":
+				System.out.println(pop());
 				break;
-			case "size": 
-				sb.append(size()).append("\n");
+			case "size":
+				System.out.println(size());
+				size();
 				break;
-			case "empty": 
-				sb.append(isEmpty()).append("\n");
+			case "empty":
+				System.out.println(empty());
+				empty();
 				break;
-			case "top": 
-				sb.append(top()).append("\n");
+			case "top":
+				System.out.println(top());
 				break;
+			
 			}
 		}
-		System.out.print(sb);
+		
 	}
 }
