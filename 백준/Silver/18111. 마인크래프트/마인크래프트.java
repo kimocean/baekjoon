@@ -1,19 +1,20 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Stack;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class Main {
+	
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-		
+	
 		int N = Integer.parseInt(st.nextToken()); // 세로
 		int M = Integer.parseInt(st.nextToken()); // 가로
-		int B = Integer.parseInt(st.nextToken()); // 인벤토리에 있는 블록의 개수
-		int arr[][] = new int[N][M];
+		int B = Integer.parseInt(st.nextToken()); // 인벤토리 내 블럭의 수
+		int[][] arr = new int[N][M];
 		
 		int min = Integer.MAX_VALUE;
 		int max = Integer.MIN_VALUE;
@@ -22,46 +23,41 @@ public class Main {
 			st = new StringTokenizer(br.readLine(), " ");
 			for(int j=0;j<M;j++) {
 				arr[i][j] = Integer.parseInt(st.nextToken());
-				if(arr[i][j] > max) {
-					max = arr[i][j];
-				} else if(arr[i][j] < min) {
+				if(min > arr[i][j]) {
 					min = arr[i][j];
+				} else if(max < arr[i][j]) {
+					max = arr[i][j];
 				}
 			}
 		}
 		
-		int time = 99999999; // 최소 시간 구별하기 위한 변수
-		int floor = 0;
+		int time = Integer.MAX_VALUE;
+		int high = 0;
 		
-		for(int i=min;i<=max;i++) {
-			int cnt = 0; // 한 층 돌릴 때의 시간
-			int block = B; // 한 층 돌릴 때 블록 수
-			
+		for(int i=min;i<=max;i++) { // i : 땅의 높이
+			int newT = 0;
+			int inven = B;
 			for(int j=0;j<N;j++) {
 				for(int k=0;k<M;k++) {
-					if(i < arr[j][k]) { // 만들 층보다 현재 층이 높으면
-						cnt += (arr[j][k] - i) * 2; // 블록 제거 - 2초라 *2 함 
-						block += arr[j][k] - i; // 제거 == 인벤토리에 넣는 거라 + 함
-					} else if(i > arr[j][k]) {
-						cnt += i - arr[j][k]; // 블록 추가
-						block -= i - arr[j][k];
+					if(i > arr[j][k]) { // 기준이 되는 땅의 높이(i)보다 현재 칸(arr)이 더 낮으면 블록 올려 줌(1)
+						newT += (i - arr[j][k]);
+						inven -= (i - arr[j][k]);
+					} else if(i < arr[j][k]) { // 기준이 되는 땅의 높이(i)보다 현재 칸(arr)이 더 높으면 블록 제거(2)
+						newT += ((arr[j][k] - i) * 2);
+						inven += (arr[j][k] - i);
 					}
 				}
 			}
-			
-			// 블록의 개수가 음수면 반복문 종료
-			if(block < 0) {
+			if(inven < 0) {
 				break;
 			}
-			
-			// 기존 시간보다 for문 돌린 시간이 작거나 같으면 대입
-			if(time >= cnt) {
-				time = cnt;
-				floor = i;
+			if(newT <= time) {
+				time = newT;
+				high = i;
 			}
 		}
 		
-		System.out.println(time + " " + floor);
+		System.out.println(time + " " + high);
 		
 	}
 }
