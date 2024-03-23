@@ -2,33 +2,32 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
 	
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-		int L = Integer.parseInt(br.readLine());
-		String str = br.readLine();
-		long M = 1234567891;
-		int r = 31;
-		long result = 0;
-		long pow = 1;
-		
-		int[] arr = new int[L];
-		for(int i=0;i<L;i++) {
-			arr[i] = str.charAt(i) - 96;
-			
-			result += (arr[i] * pow) % M;
-			pow = (pow * r) % M;
-		}
-		
 		StringBuilder sb = new StringBuilder();
-
-		sb.append(result % M);
+//		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+	
+		int N = Integer.parseInt(br.readLine());
+		String s = br.readLine();
+		int r = 31;
+		int M = 1234567891;
 		
-		System.out.println(sb);
+		int sum = 0;
+		
+		for(int i=0;i<N;i++) {
+			int num = s.charAt(i)-'a'+1;
+			int pow = 31;
+			
+			sum += (num % M) * ((int)Math.pow(r, i) % M);
+//			sum += num * (int)Math.pow(r, i) % M;
+//			pow = (int)Math.pow(r, i) % M;
+//			sum += (num % M) * pow;
+		}
+		System.out.println(sum);
 	}
 }
