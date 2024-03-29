@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Main {
 	
@@ -8,23 +10,22 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 //		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-	
+
 		int N = Integer.parseInt(br.readLine());
 		int cnt = 0;
-		int num = 0;
+		int result = 0;
 		
 		for(int i=666;i<Integer.MAX_VALUE;i++) {
-			String str = i + "";
-			if(str.contains("666")) {
+			if(String.valueOf(i).contains("666")) {
 				cnt++;
 			}
 			if(cnt == N) {
-				num = i;
+				result = i;
 				break;
 			}
 		}
 		
-		System.out.println(num);
+		System.out.println(result);
 		
 	}
 }
