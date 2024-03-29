@@ -19,7 +19,7 @@ public class Main {
 			arr[i] = Integer.parseInt(st.nextToken());
 			cnt[arr[i]+10000000]++;
 		}
-		Arrays.sort(arr);
+//		Arrays.sort(arr);
 		
 		int M = Integer.parseInt(br.readLine());
 		st = new StringTokenizer(br.readLine(), " ");
